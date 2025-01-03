@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"context"
 	"net/http"
 	"time"
 
@@ -11,6 +10,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// SaveLead handles the saving of a lead to the database.
 func SaveLead(c *gin.Context) {
 	// Parse the request body
 	var newLead models.Lead
@@ -21,6 +21,7 @@ func SaveLead(c *gin.Context) {
 
 	// Generate a new UUID for the lead
 	newLead.ID = uuid.New().String()
+	newLead.CreatedAt = time.Now()
 
 	// Connect to the database
 	db, err := config.ConnectDB()
@@ -28,13 +29,9 @@ func SaveLead(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database"})
 		return
 	}
-	defer db.Close()
 
-	// Insert the lead into the database
-	query := `INSERT INTO leads (id, name, email, role, created_at) VALUES ($1, $2, $3, $4, $5)`
-	_, err = db.Exec(context.Background(), query, newLead.ID, newLead.Name, newLead.Email, newLead.Role, time.Now())
-	if err != nil {
-		println(err)
+	// Save the lead to the database using GORM
+	if err := db.Create(&newLead).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save the lead"})
 		return
 	}

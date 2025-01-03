@@ -1,9 +1,11 @@
 package models
 
+import "time"
+
 type Role int
 
 const (
-	Headhunter Role = iota
+	Headhunter Role = iota // set index to 0 and auto increment by 1
 	Mentor
 	Professional
 	C_Level
@@ -11,8 +13,9 @@ const (
 
 // represents lead model
 type Lead struct {
-	ID    string `json:"id,omitempty"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	Role  Role   `json:"role"`
+	ID        string    `gorm:"primaryKey" json:"id,omitempty"` // omitempty - allows to auto generate ID on server side
+	Name      string    `json:"name"`
+	Email     string    `json:"email"`
+	Role      Role      `json:"role"`
+	CreatedAt time.Time `json:"created_at"`
 }
