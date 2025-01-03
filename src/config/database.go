@@ -23,6 +23,8 @@ func ConnectDB() (*pgxpool.Pool, error) {
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 
+	println(dbHost, dbPort, dbUser, dbPassword, dbName)
+
 	connectionString := fmt.Sprintf(
 		"postgresql://%s:%s@%s:%s/%s",
 		dbUser, dbPassword, dbHost, dbPort, dbName,

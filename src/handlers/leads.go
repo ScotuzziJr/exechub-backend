@@ -34,6 +34,7 @@ func SaveLead(c *gin.Context) {
 	query := `INSERT INTO leads (id, name, email, role, created_at) VALUES ($1, $2, $3, $4, $5)`
 	_, err = db.Exec(context.Background(), query, newLead.ID, newLead.Name, newLead.Email, newLead.Role, time.Now())
 	if err != nil {
+		println(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save the lead"})
 		return
 	}
