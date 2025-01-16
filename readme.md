@@ -1,5 +1,7 @@
 # Exechub Backend
 
+## Start the project in hosts
+
 ## CORS
 
 Configuração CORS

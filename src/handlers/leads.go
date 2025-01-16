@@ -36,9 +36,6 @@ func SaveLead(c *gin.Context) {
 
     // Connect to the database
     
-
-    
-
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database"})
         return

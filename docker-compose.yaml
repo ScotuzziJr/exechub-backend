@@ -20,7 +20,8 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: 123
+      POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - exechub-db:/var/lib/postgresql/data
 
