@@ -22,7 +22,12 @@ func SaveLead(c *gin.Context) {
         return
     }
 
-    // user := models.Lead{ID: uuid.New().String(), Name: "Wellington", Email: "wellingtons.bezerra@hotmail.com", Role: 0, CreatedAt: time.Now().UTC()}
+    db, err := config.ConnectDB()
+    alreadyUserLead := db.Select("email").Where("email = ?", newLead.Email).First(&newLead)
+    if (alreadyUserLead.RowsAffected == 1) {
+        c.JSON(http.StatusNoContent, gin.H{"message": "You have a cadaster."})
+        return
+    }
 
 
     // Generate a new UUID for the lead
@@ -30,7 +35,9 @@ func SaveLead(c *gin.Context) {
     newLead.CreatedAt = time.Now().Local().UTC()
 
     // Connect to the database
-    db, err := config.ConnectDB()
+    
+
+    
 
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to connect to the database"})
