@@ -1,17 +1,17 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    env_file:
-      - ./src/.env
-    volumes:
-      - .:/app
-    command: ["./bin"]
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - db
+  #   env_file:
+  #     - ./src/.env
+  #   volumes:
+  #     - .:/app
+  #   command: ["./bin"]
 
   db:
     image: postgres:16
@@ -19,9 +19,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: dqm50vnc
-      POSTGRES_DB: exechub
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 
     volumes:
       - exechub-db:/var/lib/postgresql/data
 
