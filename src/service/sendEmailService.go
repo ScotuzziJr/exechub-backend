@@ -26,6 +26,23 @@ type EmailBody struct {
 
 
 func SendEmail(email string, name string) {
+	var htmlContent = fmt.Sprintf(`
+    <body>
+        <p>Olá, %s</p>
+        <p>Seja muito bem-vindo à Exechub! Estamos extremamente felizes em tê-lo conosco e queremos que saiba que nossa equipe está à disposição para apoiar você em cada passo dessa jornada.</p>
+        <p>Na Exechub, acreditamos que juntos podemos alcançar grandes resultados, e estamos ansiosos para colaborar com você, oferecendo as melhores soluções e estratégias para o seu crescimento e sucesso.</p>
+        <p>Se tiver qualquer dúvida ou precisar de assistência, não hesite em nos contatar. Estamos aqui para ajudar!</p>
+        <p>Mais uma vez, seja bem-vindo à Exechub. Vamos fazer grandes coisas juntos!</p>
+        <p>Atenciosamente,</p>
+        <p>Equipe Exechub</p>
+
+        <p>Conecte-se conosco nas redes sociais!</p>
+        <ul>
+            <li><a href="https://www.linkedin.com/company/exechub">LinkedIn</a></li>
+            <li><a href="https://twitter.com/exechub">Twitter</a></li>
+        </ul>
+    </body>`, name)
+
 	emailBody := EmailBody{
 		Sender: EmailSender{
 			Name: "ExecHub",	
@@ -38,13 +55,7 @@ func SendEmail(email string, name string) {
 			},
 		},
 		Subject: "Bem-vindo a ExecHub!",
-		HTMLContent: `<html>
-						<head>
-						</head>
-						<body>
-							<p>Bem-vindo a ExecHub! Estamos felizes em tê-lo conosco.</p>
-						</body>
-					</html>`,
+		HTMLContent: htmlContent,
 	
 	}
 
