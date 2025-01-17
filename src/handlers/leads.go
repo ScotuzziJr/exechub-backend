@@ -7,6 +7,7 @@ import (
 
 	"github.com/ScotuzziJr/lead-service-exechub/src/config"
 	"github.com/ScotuzziJr/lead-service-exechub/src/models"
+	"github.com/ScotuzziJr/lead-service-exechub/src/service"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
@@ -48,6 +49,10 @@ func SaveLead(c *gin.Context) {
         log.Printf("Error inserting lead: %v", result.Error)
         c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
         return // Important: return here to stop further execution
+    }
+
+    if db.RowsAffected == 1 {
+        service.SendEmail(newLead.Email, newLead.Name)
     }
 
     response := struct {
