@@ -65,7 +65,7 @@ func SendEmail(email string, name string) {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("api-key", "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")
+	req.Header.Set("api-key", "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")
 
 	client := &http.Client{}
 
